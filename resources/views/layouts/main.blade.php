@@ -12,8 +12,8 @@
 
     <title>Document</title>
   </head>
-  <body class="bg-gray-500">
-    Head
+  <body class="bg-gray-400">
+    
     @yield('content')
   </body>
 </html>
