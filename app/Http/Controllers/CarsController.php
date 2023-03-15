@@ -14,7 +14,9 @@ class CarsController extends Controller
      */
     public function index()
     {
-        $cars = Car::all();
+        $cars = Car::all()->toJson();
+        $cars = json_decode($cars);
+        // var_dump($cars);
         // print_r(Car::avg('founded'));
         
         // $cars = Car::chunk(2, function ($cars) {
@@ -60,7 +62,10 @@ class CarsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $car = Car::find($id);
+        // dd($car);
+
+        return view('cars.show')->with('car', $car);
     }
 
     /**
