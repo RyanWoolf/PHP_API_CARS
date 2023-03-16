@@ -26,4 +26,24 @@ class Car extends Model
     public function headquarter() {
         return $this->hasOne(Headquarter::class);
     }
+
+    //Define a has many through relationship
+    public function engines() {
+        return $this->hasManyThrough(
+            Engine::class, 
+            CarModel::class, 
+            'car_id', // FK on CarModel table
+            'model_id' // FK on Engine table
+        );
+    }
+
+    //Define a has one through relationship
+    public function productionDate() {
+        return $this->hasOneThrough(
+            CarProductionDate::class, // Model that it wants to access
+            CarModel::class, // Intermediate model
+            'car_id', // FK on CarModel table
+            'model_id' // FK on 
+        );
+    }
 }
