@@ -6,6 +6,9 @@
     <h1 class="text-5xl uppercase bold">
       {{ $car->name }}
     </h1>
+    <p class="text-base text-gray-700 py-6">
+      {{ $car->headquarter->headquarters }}, {{ $car->headquarter->country }}
+    </p>
   </div>
   <div class="m-auto py-10 text-center">
     <div class="m-auto">
@@ -13,16 +16,16 @@
         Founded: {{ $car->founded }}
       </span>
 
-      <p class="text-lg text-gray-700 py-6">
+      <p class=" text-base text-gray-700 py-6">
         {{ $car->description }}
       </p>
-      <ul>
+      <ul class="">
         <p class="text-lg text-gray-700 py-3">
           Models:
         </p>
 
         @forelse ($car->carModels as $model)
-          <li class="inline italic text-gray-600 px-1 py-6">
+          <li class="italic text-gray-600 px-1 py-6 inline">
             {{ $model['model_name'] }}
           </li>
           
