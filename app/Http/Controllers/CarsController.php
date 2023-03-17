@@ -48,7 +48,7 @@ class CarsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) //리퀘스트는 글로벌 헬퍼
     {
         // $car = new Car;
         // $car->name = $request->input('name');
@@ -56,6 +56,54 @@ class CarsController extends Controller
         // $car->description = $request->input('description');
         // $car->save();
 
+        // Request all input fields
+        // $test = $request->all(); // Bring all data in request
+
+        //Except method
+        // $test = $request->except('_token');
+        // $test = $request->except(['_token', 'name']);
+        // $test = $request->only(['_token', 'name']);
+        // $test = $request->only('name');
+
+        //Has method founded field has been input
+        // $test = $request->has('founded');
+        // if($request->has('founded')) {
+        //     dd('Founded has been found');
+        // }
+
+        //Current path
+        // dd($request->path());
+        // if($request->is('cars')) {
+        //     dd('Endpoint is cars');
+        // }
+
+        //Current method
+        // if ($request->method('post')) {
+        //     dd('Method is post');
+        // };
+        // if ($request->isMethod('post')) {
+        //     dd('Method is post');
+        // };
+
+        //Show the URL
+        // dd($request->url());
+
+        //Show the IP
+        // dd($request->ip());
+
+
+        // dd($test);
+
+
+        // Validation & Error handling
+        $request->validate([ // 인풋을 체크해서 트루 폴스를 리턴
+            'name' => ['required'], ['unique:cars'], // not recommended
+            'founded' => 'required|integer|min:0|max:2021', // Pipes recommended
+            'description' => 'required'
+        ]);
+
+        // If it's valid, it will proceed
+        // If it's not valid, throw a ValidationException
         $car = Car::create([ // same as Car::make + save()
             'name' => $request->input('name'),
             'founded' => $request->input('founded'),
