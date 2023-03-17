@@ -7,6 +7,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Headquarter;
+use App\Models\Product;
+
 
 class CarsController extends Controller
 {
@@ -15,8 +17,13 @@ class CarsController extends Controller
      */
     public function index()
     {
-        $cars = Car::all()->toJson();
-        $cars = json_decode($cars);
+        // Query builder
+        // $cars = DB::table('cars')->paginate(4);
+
+        
+        $cars = Car::paginate(3);
+        // $cars = Car::all()->toJson();
+        // $cars = json_decode($cars);
         // var_dump($cars);
         // print_r(Car::avg('founded'));
         
@@ -64,10 +71,12 @@ class CarsController extends Controller
     public function show(string $id)
     {
         $car = Car::find($id);
+        $products = Product::find($id);
+
 
         $hq = Headquarter::find($id);
 
-        // var_dump($car->productionDate);
+        // var_dump($car->products);
         // $hq = $car->headquarter;
         // dd($hq);
         // dd($car->engines);

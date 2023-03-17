@@ -71,6 +71,14 @@
           No car models found!
         @endforelse
       </table>
+      <p class="text-left">
+        Product types:
+        @forelse ($car->products as $product )
+          {{ $product->name }}
+        @empty
+          No car production found.
+        @endforelse
+      </p>
       <hr class="mt-4 mb-8">
     </div>
   </div>

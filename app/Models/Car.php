@@ -12,8 +12,8 @@ class Car extends Model
     protected $table = 'cars';
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'founded', 'description'];
-    // protected $timestamps = true;
-    // protected $dateFormat = 'h:m:s';
+    // protected $timestamps = false; // 사용하고 싶지 않으면 거짓을 넣어둠
+    // protected $dateFormat = 'h:m:s'; // "Y-m-d H:i:s"
 
     // protected $hidden = ['updated_at'];
     // protected $visible = ['name', 'founded', 'description'];
@@ -21,6 +21,8 @@ class Car extends Model
     // one to many
     public function carModels() {
         return $this->hasMany(CarModel::class);
+        // hasMany($related, $foreignKey = null, $localKey = null)
+        // 참조키 이름이 다른경우 두번째 파라미터에 이름을.
     } 
 
     public function headquarter() {
@@ -34,6 +36,7 @@ class Car extends Model
             CarModel::class, 
             'car_id', // FK on CarModel table
             'model_id' // FK on Engine table
+            // hasManyThrough($related, $through, $firstKey = null, $secondKey = null, $localKey = null)
         );
     }
 
@@ -45,5 +48,9 @@ class Car extends Model
             'car_id', // FK on CarModel table
             'model_id' // FK on 
         );
+    }
+
+    public function products() {
+        return $this->belongsToMany(Product::class);
     }
 }
