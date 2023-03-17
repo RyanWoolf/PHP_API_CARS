@@ -3,6 +3,9 @@
 @section('content')
 <div class="m-auto w-4/5 py-24">
   <div class="text-center">
+    <img
+      class="w-8/12 mb-8 shadow-xl" 
+      src="{{ asset('images/' . $car->image_path) }}" alt="">
     <h1 class="text-5xl uppercase bold">
       {{ $car->name }}
     </h1>

@@ -11,7 +11,7 @@ class Car extends Model
 
     protected $table = 'cars';
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'founded', 'description'];
+    protected $fillable = ['name', 'founded', 'description', 'image_path'];
     // protected $timestamps = false; // 사용하고 싶지 않으면 거짓을 넣어둠
     // protected $dateFormat = 'h:m:s'; // "Y-m-d H:i:s"
 

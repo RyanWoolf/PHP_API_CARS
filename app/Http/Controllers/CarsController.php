@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
-
+use App\Http\Requests\CreateValidationRequest;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Headquarter;
 use App\Models\Product;
+
+
 
 
 class CarsController extends Controller
@@ -95,19 +96,58 @@ class CarsController extends Controller
         // dd($test);
 
 
-        // Validation & Error handling
-        $request->validate([ // 인풋을 체크해서 트루 폴스를 리턴
-            'name' => ['required'], ['unique:cars'], // not recommended
-            'founded' => 'required|integer|min:0|max:2021', // Pipes recommended
-            'description' => 'required'
-        ]);
 
+        // Validation & Error handling
+        // $request->validate([ // 인풋을 체크해서 트루 폴스를 리턴
+        //     'name' => ['required'], ['unique:cars'], // not recommended
+        //     'founded' => 'required|integer|min:0|max:2021', // Pipes recommended
+        //     'description' => 'required'
+        // ]);
+
+        // $request->validated();
         // If it's valid, it will proceed
         // If it's not valid, throw a ValidationException
+
+
+        //Methods we can use on $request
+        //guessExtension()
+        // $test = $request->file('image')->guessExtension();
+        // dd($test);
+
+        //getMimeType()
+        // $test = $request->file('image')->getMimeType();
+        // dd($test);
+
+        //store()
+        //asStore()
+        //storePublicly()
+        //move()
+        //getClientOriginalName() string
+        //getClientMimeType() jpg
+        //guessClientExtension() jpg
+        //getSize() kb
+        //getError() integer
+        //isValid() bool
+
+
+        $request->validate([
+            'name' => ['required'], ['unique:cars'], // not recommended
+            'founded' => 'required|integer|min:0|max:2021', // Pipes recommended
+            'description' => 'required',
+            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+        ]);
+
+        // Change the name of image uploaded
+        $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $newImageName);
+        // move(name of directory, name of file)
+
+
         $car = Car::create([ // same as Car::make + save()
             'name' => $request->input('name'),
             'founded' => $request->input('founded'),
-            'description' => $request->input('description')
+            'description' => $request->input('description'),
+            'image_path' => $newImageName
         ]); 
 
         return redirect('/cars');
@@ -148,8 +188,9 @@ class CarsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CreateValidationRequest $request, string $id)
     {
+        $request->validated();
         $car = Car::where('id', $id)->update([ 
             'name' => $request->input('name'),
             'founded' => $request->input('founded'),
