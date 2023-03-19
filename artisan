@@ -51,3 +51,20 @@ $status = $kernel->handle(
 $kernel->terminate($input, $status);
 
 exit($status);
+
+
+/** 
+ * php artisan list
+ * php artisan clear-compiled
+ * php artisan down / up   // maintain mode on / off
+ * php artisan env
+ * php artisan help
+ * php artisan --version
+ * php artisan --env
+ * php artisan optimize
+ * php artisan cache:clear
+ * php artisan auth:clear-resets //delete all tokens expired in db
+ * php artisan key:generate //env에 키 토큰 생성하고 저장
+ * php artisan session:table //마이그레이션 생성하고 세션 테이블을 생성하여 디비로 보냄
+ * php artisan view:clear // 
+ */

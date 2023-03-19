@@ -11,7 +11,7 @@ class Car extends Model
 
     protected $table = 'cars';
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'founded', 'description', 'image_path'];
+    protected $fillable = ['name', 'founded', 'description', 'image_path', 'user_id'];
     // protected $timestamps = false; // 사용하고 싶지 않으면 거짓을 넣어둠
     // protected $dateFormat = 'h:m:s'; // "Y-m-d H:i:s"
 
@@ -25,6 +25,9 @@ class Car extends Model
         // 참조키 이름이 다른경우 두번째 파라미터에 이름을.
     } 
 
+    public function users() {
+        return $this->hasOne(User::class);
+    }
     public function headquarter() {
         return $this->hasOne(Headquarter::class);
     }
